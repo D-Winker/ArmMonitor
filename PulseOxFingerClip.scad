@@ -1,4 +1,5 @@
 // Pulse Oximeter finger-clip
+// V9
 
 // Units are mm
 
@@ -59,11 +60,11 @@ module drawClip(thickness) {
         }
     }
     // Over the pulse oximeter part
-    translate([0, 1, 3]) {
+    translate([0, 6, 3]) {
         cube([16, 18, 16], center=true);
     }
     // Make the bottom flat and add a bit to help hold the pulseox
-    translate([0, -4, 2]) {
+    translate([0, 0, 2]) {
         cube([16, 26, 6], center=true);
     }
 }
@@ -140,12 +141,8 @@ difference() {
     drawClip(2);
     union() {
         drawFinger();
-        translate([0, -5, 0]) { 
+        rotate([15, 0, 0]) { 
             drawPulseOximeter();
         }
     }
-}
-// Deal with the slit where the sensor pokes through
-translate([0, -16, 2]) {
-    cube([5, 6, 1], center=true);
 }

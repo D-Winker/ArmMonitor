@@ -80,10 +80,10 @@ module drawPulseOximeter() {
         // Components
         // Sensor
         translate([0, 0, thickness]) {
-            cube([3.2, 5.5, thickness], center=true);
+            cube([3.2, 25+5.5, thickness], center=true);
         }
         translate([0, 0, 3]) {  // To make the sensor taller
-            cube([3.2, 5.5, thickness], center=true);
+            cube([3.2, 25+5.5, thickness], center=true);
         }
         // Connectors
         translate([0, 0, -(1.5/2+3/2)]) {
@@ -141,8 +141,10 @@ difference() {
     drawClip(2);
     union() {
         drawFinger();
-        rotate([15, 0, 0]) { 
-            drawPulseOximeter();
+        translate([0, 0, 2]) {
+            rotate([20, 0, 0]) { 
+                drawPulseOximeter();
+            }
         }
     }
 }

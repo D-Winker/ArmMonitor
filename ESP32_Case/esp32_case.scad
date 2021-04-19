@@ -198,7 +198,7 @@ TYNDALL NATIONAL INSTITUTE SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT
 a_bit=0.1;
 /* [User Controls] */
 //dimensions of the object to be packaged
-device_xyz=[59.3, 26, 11.1];
+device_xyz=[60, 26, 11.1];
 //size of the gap between each side of the object and the internal wall of the packaging
 clearance_xyz=[0.5,0.5,0.5];//
 //how thick the material of the packaging in each direction//recommend keeping X&Y value the same
@@ -260,12 +260,12 @@ holes =
     // as well as LiPo/Battery connection
 	["E", "Rectangle",		
                 [(device_xyz[0]/2), device_xyz[1]/2, -device_xyz[0]/2, -15 ,0,"inside"],
-                [wall_t/2, 17.6, 4.7+0.4]
+                [wall_t/2, 19, 6+0.4]
     ], 
     //cutout for uUSB plastic overmold plug #uUSBspec maximum overmold size of 10.6 by 8.5 mm measured at ~10.8x7mm
 	["E", "Round_Rect",
                 [(device_xyz[0]/2), device_xyz[1]/2, -device_xyz[0]/2, -15 ,0,"outside"],
-                [wall_t/2 + lip_fit/2, 20, 7.7,1,3]
+                [wall_t/2 + lip_fit/2, 21.5, 8.5,1,3]
     ],
 
     // wire-pass thru
@@ -291,19 +291,19 @@ posts = [
     //        shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], 
     //        shape_size[depth,,,]]
 	["B", "Cylinder",		
-                [device_xyz[0]+16.5, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
+                [device_xyz[0]+17, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
                 [2, 0.4, device_xyz[1]+1]
     ], 
 	["B", "Cylinder",		
-                [device_xyz[0]+16.5, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
+                [device_xyz[0]+17, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
                 [2, 0.4, device_xyz[1]+1]
     ], 
 	["B", "Cylinder",		
-                [device_xyz[0]-0.9, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
+                [device_xyz[0]-0.5, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
                 [2, 0.4, device_xyz[1]+1]
     ], 
 	["B", "Cylinder",		
-                [device_xyz[0]-0.9, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
+                [device_xyz[0]-0.5, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
                 [2, 0.4, device_xyz[1]+1]
     ], 
 

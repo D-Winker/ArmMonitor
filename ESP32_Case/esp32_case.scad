@@ -61,7 +61,7 @@ Once the user has provided this data the shape is made as follows:
 	3. From "posts" create internal support structures and union that with the previous shape
 	4. From "holes" create shapes on each face and difference that from the previous shape
 	5. From "text" create letters on each face and difference that from the previous shape
-	6. Using the packaging height, "lip_h", "top_bottom_ratio" & "lip_fit" split the previous shape into a top and bottom half
+	6. Using the packaging height, "lip_h", "top_bottom_ratio" & "lip_fit" split teh previous shape into a top and bottom half
 	7. Using layout & separation arrange the parts as specified by the user
 	8. Using layout, mouse_ears, mouse_ear_thickness & mouse_ear_radius union the mouse ears to the previous shapes correctly
 	9. Done!
@@ -194,11 +194,10 @@ IN NO EVENT SHALL TYNDALL NATIONAL INSTITUTE BE LIABLE TO ANY PARTY FOR DIRECT, 
 TYNDALL NATIONAL INSTITUTE SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND TYNDALL NATIONAL INSTITUTE HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 */
-
 a_bit=0.1;
 /* [User Controls] */
 //dimensions of the object to be packaged
-device_xyz=[60, 26, 11.1];
+device_xyz=[59, 26, 11.1];
 //size of the gap between each side of the object and the internal wall of the packaging
 clearance_xyz=[0.5,0.5,0.5];//
 //how thick the material of the packaging in each direction//recommend keeping X&Y value the same
@@ -215,11 +214,9 @@ corner_sides=9;
 
 //How high is the lip that connects the 2 halves?
 lip_h=2;
-// lip_h=1; // for notches
 
 //How tall is the top relative to the bottom
 top_bottom_ratio=0.32;
-//top_bottom_ratio=0.4; // for notches
 
 //Does the part have mouse ears or not?
 has_mouseears=false;//[true, false]
@@ -249,18 +246,14 @@ has_device=false;//true/false
 box_type="rounded4sides";//"rounded4sides";//"cuboid","rounded4sides", "rounded6sides", "chamfered6sides"
 
 //data structure defining all the cutouts and depressions used on the packaging
-holes = 
-[ 
-    //format   [face_name, shape_name, 
-    //          shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align],
-    //          shape_size[depth,,,] 
-    //          ]
+holes = [ 
+    //format [face_name, shape_name, shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], shape_size[depth,,,]]
 
     // cutout for uUSB metal plug (uUSB spec is 6.85*1.8, measured at ~7*2.1)
     // as well as LiPo/Battery connection
 	["E", "Rectangle",		
                 [(device_xyz[0]/2), device_xyz[1]/2, -device_xyz[0]/2, -15 ,0,"inside"],
-                [wall_t/2, 19, 6+0.4]
+                [wall_t/2, 19, 7+0.4]
     ], 
     //cutout for uUSB plastic overmold plug #uUSBspec maximum overmold size of 10.6 by 8.5 mm measured at ~10.8x7mm
 	["E", "Round_Rect",
@@ -277,42 +270,39 @@ holes =
     // reset btn
 	["T", "Cylinder",		
                 [device_xyz[0]/2+13.8, device_xyz[1]/2+7.5, -device_xyz[0]/2, -device_xyz[1]/2 ,0,"outside"],
-                [wall_t, 1.5, 9]
+                [wall_t, 2.0, 9]
     ], 
-
-    
 	];
 
-
-	post_tolerance=0.2;
+post_tolerance=0.2;
 //data structure defining all the internal supporting structures used on the packaging
 posts = [ 
-    //format [face_name, shape_name 
-    //        shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], 
-    //        shape_size[depth,,,]]
-	["B", "Cylinder",		
+    //format [face_name, shape_name shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], shape_size[depth,,,]]
+	["B", "Cone",		
                 [device_xyz[0]+17, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
-                [2, 0.4, device_xyz[1]+1]
+                [2, 0.2, 0.4, device_xyz[1]+2]
     ], 
-	["B", "Cylinder",		
+	["B", "Cone",		
                 [device_xyz[0]+17, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
-                [2, 0.4, device_xyz[1]+1]
+                [2, 0.2, 0.4, device_xyz[1]+2]
     ], 
-	["B", "Cylinder",		
+	["B", "Cone",		
                 [device_xyz[0]-0.5, device_xyz[1]/2+7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
-                [2, 0.4, device_xyz[1]+1]
+                [2, 0.2, 0.4, device_xyz[1]+2]
     ], 
-	["B", "Cylinder",		
+	["B", "Cone",		
                 [device_xyz[0]-0.5, device_xyz[1]/2-7.5, -device_xyz[0], -(device_xyz[1]/2) ,0,"inside"],
-                [2, 0.4, device_xyz[1]+1]
+                [2, 0.2, 0.4, device_xyz[1]+2]
     ], 
 
 	];
+
 //data structure defining all the engraved text used on the packaging
 text_engrave_emboss_depth=1;
 text_height_big=7;
 text_height_small=3;
 text_spacing=1.1;
+
 text = [//recessed text on faces [face_name, text_to_write, shape_position[x_pos,y_pos,x_offs,y_offs,rotate,align], shape_size[depth,font_height,font_spacing,mirror]] Note: for silly reasons mirror must be 0 or 1 corresponding to false and true in this version
 	];
 
@@ -322,7 +312,7 @@ items =[//external items on faces [face_name, external_file, shape_position[x_po
 	];
 
 //add external slotted flanges for say passing a belt or strap through in Z plane on up to 4 sides
-has_flanges=true;//[true, false]
+has_flanges=false;//[true, false]
 //how thick are the flanges in Z-direction
 flange_t=wall_t;
 //how "tall" is the slot in the flange i.e. thick is the material you will want to pass through the slot in the flange
@@ -383,7 +373,7 @@ locking_feature_max_ly=device_xyz[0]-10;//20;
 
 //********************************includes******************//
 use<write.scad>;
-//use<wimuv4_stack_v0.1.scad>;//this is used with the call "wimuv4_2013_device" to load the internal electronics rough shape and structure for testing the fit, you can replace these with your own calls and .scad files or even use .stl files like the examples in the commented out lines beside the wimuv4_2013_device calls
+use<wimuv4_stack_v0.1.scad>;//this is used with the call "wimuv4_2013_device" to load the internal electronics rough shape and structure for testing the fit, you can replace these with your own calls and .scad files or even use .stl files like the examples in the commented out lines beside the wimuv4_2013_device calls
 
 //******************************calls**********************//
 	make_box(box,corner_radius, corner_sides, lip_h, lip_fit, top_bottom_ratio, mouse_ears, layout, flipped, separation, holes, posts, text, items, has_device, box_type, has_flanges, flanges);

@@ -52,16 +52,18 @@ module drawClip(thickness) {
             }
         }
         // Slits, for flexibility
+        /*
         translate([0, -10, 8.3]) {
             cube([30, 30, 0.5], center=true);
         }
         translate([0, -20, fingerHeight]) {
             cube([0.5, 30, 15], center=true);
         }
+        */
     }
     // Over the pulse oximeter part
     translate([0, 6, 3]) {
-        cube([16, 18, 16], center=true);
+        cube([16, 16, 16], center=true);
     }
     // Make the bottom flat and add a bit to help hold the pulseox
     translate([0, 0, 2]) {
@@ -144,7 +146,41 @@ difference() {
         translate([0, 0, 2]) {
             rotate([20, 0, 0]) { 
                 drawPulseOximeter();
+                // Clear out wasted material, make the package smaller
+                translate([0, 0, -13]) {
+                    cube([20, 50, 15], center=true);
+                }
             }
+            // Clear out wasted material, make the package smaller
+            translate([0, 0, -7]) {
+                cube([20, 50, 5], center=true);
+            }
+        }
+        // Add holes for cooling (hopefully)
+        rad = 1.5;
+        translate([0, 0, 8.8]) {
+            for ( i = [0 : 6] ){
+                rotate(i * 60, [0, 1, 0]) {
+                    for (j = [0 : 3] ){
+                        translate([0, -6*j, 0]) {
+                            cylinder(h=50, r=rad, center=true, $fn=10);
+                        }
+                    }
+                    rotate(30, [0, 1, 0]) {
+                        translate([0, 3, 0]) {
+                            for (j = [0 : 2] ){
+                                translate([0, -6*j, 0]) {
+                                    cylinder(h=50, r=rad, center=true, $fn=10);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Too long for my pointer, cut off the back part
+        translate([0, -30, 0]) {
+            cube([30, 30, 50], center=true);
         }
     }
 }
